@@ -541,6 +541,10 @@ do
     --   },
     -- },
     -- pickers = {}
+    defaults = {
+      -- Show the filename before its (dimmed) directory so it stands out in deep paths.
+      path_display = { 'filename_first' },
+    },
     extensions = {
       ['ui-select'] = { require('telescope.themes').get_dropdown() },
     },
