@@ -48,8 +48,15 @@ vim.api.nvim_create_autocmd('FileType', {
     -- jdtls keeps per-project index data here; each project needs its own directory.
     local workspace_dir = vim.fs.joinpath(vim.fn.stdpath 'cache', 'jdtls', 'workspace', (root_dir:gsub('[/\\:]', '%%')))
 
+    local cmd = { 'jdtls', '-data', workspace_dir }
+
+    -- Load Lombok as a Java agent so jdtls sees generated members (`log`, getters, builders, constructors).
+    -- Mason ships lombok.jar alongside jdtls, but its `jdtls` wrapper does not enable it on its own.
+    local lombok_jar = vim.fs.joinpath(vim.fn.stdpath 'data', 'mason', 'packages', 'jdtls', 'lombok.jar')
+    if vim.uv.fs_stat(lombok_jar) then table.insert(cmd, '--jvm-arg=-javaagent:' .. lombok_jar) end
+
     require('jdtls').start_or_attach {
-      cmd = { 'jdtls', '-data', workspace_dir },
+      cmd = cmd,
       root_dir = root_dir,
       capabilities = require('blink.cmp').get_lsp_capabilities(),
     }
