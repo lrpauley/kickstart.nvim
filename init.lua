@@ -364,6 +364,9 @@ do
       topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
       changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
     },
+    -- Show author, date and commit summary at the end of the current line.
+    --  Toggle with `<leader>tb`, or see the full commit with `<leader>hb`
+    current_line_blame = true,
     -- gitsigns.nvim's recommended keymaps:
     on_attach = function(bufnr)
       -- Navigation
