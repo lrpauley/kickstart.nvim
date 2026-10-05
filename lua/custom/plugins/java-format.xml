@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Eclipse formatter profile for jdtls, matching the IntelliJ code style in the
+  Knownwell Java repos' `.editorconfig` (`ij_java_*` settings) as closely as the
+  Eclipse formatter allows. Used by jdtls.lua; see java-format.lua for format on save.
+
+  Only settings that differ from the Eclipse defaults are listed.
+  Tuned by formatting both repos with IntelliJ's own formatter and with this
+  profile, and minimizing the differences. Known remaining differences:
+   - When call arguments wrap onto several lines, IntelliJ puts `)` on its own line;
+     Eclipse leaves it after the last argument.
+   - IntelliJ never wraps long annotation arguments; Eclipse wraps them at 120.
+   - IntelliJ reflows Javadoc; this profile keeps comments' existing line breaks.
+-->
+<profiles version="23">
+<profile kind="CodeFormatterProfile" name="Knownwell" version="23">
+<!-- indent_style = space, indent_size = 4, ij_continuation_indent_size = 4 -->
+<setting id="org.eclipse.jdt.core.formatter.tabulation.char" value="space"/>
+<setting id="org.eclipse.jdt.core.formatter.continuation_indentation" value="1"/>
+<setting id="org.eclipse.jdt.core.formatter.continuation_indentation_for_array_initializer" value="1"/>
+<!-- max_line_length = 120 -->
+<setting id="org.eclipse.jdt.core.formatter.lineSplit" value="120"/>
+<setting id="org.eclipse.jdt.core.formatter.comment.line_length" value="120"/>
+<!-- ij_java_keep_line_breaks = true -->
+<setting id="org.eclipse.jdt.core.formatter.join_wrapped_lines" value="false"/>
+<setting id="org.eclipse.jdt.core.formatter.join_lines_in_comments" value="false"/>
+<!-- ij_java_blank_lines_after_class_header = 1 -->
+<setting id="org.eclipse.jdt.core.formatter.blank_lines_before_first_class_body_declaration" value="1"/>
+<!-- ij_formatter_tags_enabled = false -->
+<setting id="org.eclipse.jdt.core.formatter.use_on_off_tags" value="false"/>
+<!-- Wrapped arguments start on a new line after `(`; existing `(` / `)` positions are kept
+     (ij_java_call_parameters_new_line_after_left_paren, ij_java_method_parameters_new_line_after_left_paren) -->
+<setting id="org.eclipse.jdt.core.formatter.alignment_for_arguments_in_method_invocation" value="32"/>
+<setting id="org.eclipse.jdt.core.formatter.alignment_for_arguments_in_allocation_expression" value="32"/>
+<setting id="org.eclipse.jdt.core.formatter.alignment_for_parameters_in_method_declaration" value="32"/>
+<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_method_invocation" value="preserve_positions"/>
+<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_method_delcaration" value="preserve_positions"/>
+<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_record_declaration" value="preserve_positions"/>
+<setting id="org.eclipse.jdt.core.formatter.parentheses_positions_in_annotation" value="preserve_positions"/>
+<!-- Keep existing line breaks in these, which Eclipse otherwise joins (ij_java_keep_line_breaks = true) -->
+<setting id="org.eclipse.jdt.core.formatter.alignment_for_arguments_in_annotation" value="16"/>
+<setting id="org.eclipse.jdt.core.formatter.alignment_for_annotations_on_parameter" value="16"/>
+<!-- ij_java_ternary_operation_wrap = normal -->
+<setting id="org.eclipse.jdt.core.formatter.alignment_for_conditional_expression" value="16"/>
+</profile>
+</profiles>

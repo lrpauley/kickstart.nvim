@@ -20,6 +20,8 @@ registry.refresh(function()
   if ok and not pkg:is_installed() then pkg:install() end
 end)
 
+local formatter_profile = vim.fs.joinpath(vim.fn.stdpath 'config', 'lua', 'custom', 'plugins', 'java-format.xml')
+
 local java_ok ---@type boolean?
 local function has_java()
   if java_ok == nil then
@@ -59,6 +61,17 @@ vim.api.nvim_create_autocmd('FileType', {
       cmd = cmd,
       root_dir = root_dir,
       capabilities = require('blink.cmp').get_lsp_capabilities(),
+      settings = {
+        java = {
+          -- Eclipse formatter profile matching the IntelliJ code style of the Knownwell repos.
+          -- See java-format.lua for format on save.
+          format = { settings = { url = formatter_profile, profile = 'Knownwell' } },
+          -- Imports like IntelliJ's `imports_layout = $*, |, *`: static imports first, then
+          -- everything else, sorted, and never collapsed into `*` wildcards.
+          completion = { importOrder = { '#', '' } },
+          sources = { organizeImports = { starThreshold = 9999, staticStarThreshold = 9999 } },
+        },
+      },
     }
   end,
 })
