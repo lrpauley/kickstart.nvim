@@ -238,6 +238,18 @@ do
   --  See `:help CTRL-^`
   vim.keymap.set('n', '<BS>', '<C-^>', { desc = 'Switch to previous file' })
 
+  -- Copy the current file's path, relative to the current working directory, to the system clipboard
+  --  See `:help filename-modifiers`
+  vim.keymap.set('n', '<leader>yp', function()
+    local path = vim.fn.expand '%:.'
+    if path == '' then
+      vim.notify('Buffer has no file path', vim.log.levels.WARN)
+      return
+    end
+    vim.fn.setreg('+', path)
+    vim.notify(('Copied %s'):format(path):sub(1, vim.v.echospace))
+  end, { desc = '[Y]ank relative file [P]ath' })
+
   -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
   -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
   -- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
@@ -419,6 +431,7 @@ do
     spec = {
       { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
       { '<leader>t', group = '[T]oggle' },
+      { '<leader>y', group = '[Y]ank' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
       { 'gr', group = 'LSP Actions', mode = { 'n' } },
     },
