@@ -768,6 +768,15 @@ do
     -- But for many setups, the LSP (`rust_analyzer`) will work just fine
     -- rust_analyzer = {},
 
+    -- JavaScript and TypeScript (including JSX/TSX), using the same TypeScript language service as VS Code.
+    -- Needs Node.js.
+    vtsls = {
+      settings = {
+        -- Use the project's own `typescript` from node_modules when there is one, so errors match its build
+        vtsls = { autoUseWorkspaceTsdk = true },
+      },
+    },
+
     stylua = {}, -- Used to format Lua code
 
     -- Special Lua Config, as recommended by neovim help docs
